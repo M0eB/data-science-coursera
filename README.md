@@ -3,8 +3,7 @@ data-science-coursera
 
 Scripts from Coursera's data science specialization created by Johns Hopkins University.
 
-Courses:
---------
+# Courses:
 
 * 1) The Data Scientist's Toolbox
 * 2) R Programming
@@ -18,8 +17,7 @@ Courses:
 * 10) Data Science Capstone 
 
 
-Professors:
------------
+# Professors:
 
 * Brian Caffo
 * Roger D. Peng
