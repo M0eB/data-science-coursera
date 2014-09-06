@@ -1,5 +1,9 @@
-
-
+# =============================================================================
+#          By : Mohamed T. Ismail
+#      Course : Getting and Cleaning Data (Johns Hopkins University)
+#    Provider : Coursera.com
+# Description : Week 1 practice questions - getting csv/xml/json/etc. data
+# =============================================================================
 
 
 question1 <- function()
@@ -43,6 +47,7 @@ question1 <- function()
       
 }
 
+
 question3 <- function()
 {
       # Download the Excel spreadsheet on Natural Gas Aquisition Program here:     
@@ -74,7 +79,6 @@ question3 <- function()
 }
 
 
-
 question4 <- function()
 {
       # Read the XML data on Baltimore restaurants from here:      
@@ -103,9 +107,24 @@ question4 <- function()
 }
 
 
-
 question5 <- function()
 {
+      # The American Community Survey distributes downloadable data about 
+      # United States communities. Download the 2006 microdata survey about 
+      # housing for the state of Idaho using download.file() from here:      
+      #      https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv 
+      
+      # Using the fread() command load the data into an R object DT 
+      # Which of the following is the fastest way to calculate the average value 
+      # of the variable pwgtp15 broken down by sex using the data.table package?
+      
+      # a) tapply(DT$pwgtp15,DT$SEX,mean)  
+      # b) DT[,mean(pwgtp15),by=SEX]
+      # c) mean(DT$pwgtp15,by=DT$SEX)  
+      # d) mean(DT[DT$SEX==1,]$pwgtp15); mean(DT[DT$SEX==2,]$pwgtp15)
+      # e) rowMeans(DT)[DT$SEX==1]; rowMeans(DT)[DT$SEX==2]
+      # f) sapply(split(DT$pwgtp15,DT$SEX),mean)   
+      
       
       
 }

@@ -1,5 +1,9 @@
-
-
+# =============================================================================
+#          By : Mohamed T. Ismail
+#      Course : Getting and Cleaning Data (Johns Hopkins University)
+#    Provider : Coursera.com
+# Description : Week 1 notes and examples (from slides)
+# =============================================================================
 
 
 createSubDir <- function( subDir )
@@ -7,6 +11,7 @@ createSubDir <- function( subDir )
       mainDir <- getwd()
       dir.create(file.path(mainDir, subDir), showWarnings = FALSE)
 }
+
 
 get_and_read_csv <- function()
 {
@@ -35,6 +40,7 @@ get_and_read_csv <- function()
       print( head( cameraData ) )
       
 }
+
 
 get_and_read_xls <- function()
 {
@@ -66,6 +72,7 @@ get_and_read_xls <- function()
                                      colIndex=colIndex, rowIndex=rowIndex )
       cameraDataSubset
 }
+
 
 get_and_read_xml <- function()
 { 
@@ -106,6 +113,7 @@ get_and_read_xml <- function()
       print( prices )
 }
 
+
 get_and_read_xml_2 <- function()
 {
       # Sample section form website
@@ -127,6 +135,7 @@ get_and_read_xml_2 <- function()
       print( teams )
 }
 
+
 get_and_read_json <- function()
 {
       ##install.packages("jsonlite")
@@ -141,6 +150,7 @@ get_and_read_json <- function()
       jsonData$owner$login      #Go deeper...
 }
 
+
 from_and_to_json <- function()
 {
       myjson <- toJSON( iris, pretty=TRUE )
@@ -151,6 +161,7 @@ from_and_to_json <- function()
       print( "The Original Data : ")
       head( iris2 )
 }
+
 
 create_data_table <- function()
 {
@@ -168,6 +179,4 @@ create_data_table <- function()
       # Yeaa booiiiii
       
 }
-
-
 
