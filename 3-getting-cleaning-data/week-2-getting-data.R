@@ -149,7 +149,7 @@ get_hdf5_data <- function()
 }
 
 
-## WEBSCAPING RESOURCES =======================================================
+## WEBSCRAPING RESOURCES =======================================================
 ## 
 ## httr Package Documentation
 ##    http://cran.r-project.org/web/packages/httr/httr.pdf
