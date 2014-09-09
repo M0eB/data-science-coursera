@@ -1,6 +1,6 @@
 # =============================================================================
 #          By : Mohamed T. Ismail
-#      Course : Getting and Cleaning Data (Johns Hopkins University)
+#      Course : Exploratory Data Analysis (Johns Hopkins University)
 #    Provider : Coursera.com
 # Description : Week 2 notes and examples (from slides)
 # =============================================================================
