@@ -1,12 +1,41 @@
+# =============================================================================
+#          By : Mohamed T. Ismail
+#      Course : Exploratory Data Analysis (Johns Hopkins University)
+#    Provider : Coursera.com
+# Description : Week 1 notes and examples (from slides)
+# =============================================================================
 
-# Plotting Systems ------------------------------------------------------------
+# Exploratory Graphs ----------------------------------------------------------
 #
-#        Base : "Artist's palette" model
-#     Lattice : Entire plot specified by one function; conditioning
-#     ggplot2 : Mixes elements of base and Lattice
+# Simple Summaries of Data :
+#       One Dimension :
+#          - Five-number summary
+#          - Boxplots
+#          - Histograms
+#          - Density Plot
+#          - Barplot
+#       Two Dimensions :
+#          - Multiple/Overlayed 1-D plots (Lattice/ggplot2)
+#          - Scatterplots
+#          - Smooth scatterplots
+#       >2 Dimensions :
+#          - Overlated/multiple 2-D plots; coplots
+#          - Use color, size, shape to add dimensions
+#          - Spinning plots
+#          - Actual 3-D plot (not that useful)
+#
+# -----------------------------------------------------------------------------
 
 plotting_systems <- function()
 {
+      # Plotting Systems ------------------------------------------------------
+      #
+      #        Base : "Artist's palette" model
+      #     Lattice : Entire plot specified by one function; conditioning
+      #     ggplot2 : Mixes elements of base and Lattice
+      #
+      # -----------------------------------------------------------------------
+      
       # 1. The Base PLotting System -------------------------------------------
       #
       #   - Start with a plot function and use annotation functions to modify
@@ -55,26 +84,6 @@ plotting_systems <- function()
       
 }
 
-
-# Exploratory Graphs ----------------------------------------------------------
-#
-# Simple Summaries of Data :
-#       One Dimension :
-#          - Five-number summary
-#          - Boxplots
-#          - Histograms
-#          - Density Plot
-#          - Barplot
-#       Two Dimensions :
-#          - Multiple/Overlayed 1-D plots (Lattice/ggplot2)
-#          - Scatterplots
-#          - Smooth scatterplots
-#       >2 Dimensions :
-#          - Overlated/multiple 2-D plots; coplots
-#          - Use color, size, shape to add dimensions
-#          - Spinning plots
-#          - Actual 3-D plot (not that useful)
-
 exploratory_graphs <- function()
 {
       # Air Pollution in the US  ----------------------------------------------
@@ -88,6 +97,8 @@ exploratory_graphs <- function()
       # of 2008-2010 to answe the question :
       #
       # Are there any counties in the U.S that exceed the national stanadard ?
+      #
+      # -----------------------------------------------------------------------
       
       ## Load the data
       filePath <- "C:/Users/Mohamed/Google Drive/@ Career - Data Science/Repo/data-science-coursera/4-exploratory-data-analysis/data/avgpm25.csv"
@@ -138,8 +149,6 @@ exploratory_graphs <- function()
       
 }
 
-
-
 base_plotting_system <- function()
 {
       library(datasets)
@@ -177,8 +186,8 @@ base_plotting_system <- function()
       #    oma : outer margin size (default is 0)
       #  mfriw : # of plots per row, column (filled row-wise)
       #  mfcol : # of plots per row, column (filled column-wise)
-      
-      ## See default values for global graphics parameters --------------------
+
+      ## See default values for global graphics parameters 
       
       print( par("lty") )      # solid line
       print( par("col") )      # black
@@ -203,7 +212,7 @@ base_plotting_system <- function()
       
       
       ## Base Plot with Annotation --------------------------------------------
-      #library(datasets)
+      
       with(airquality, plot(Wind, Ozone))
       title(main = "Ozone & Wind in New York City")  ## Add a title
       
@@ -229,6 +238,7 @@ base_plotting_system <- function()
       
       
       ## Base Plot with Regression Line ---------------------------------------
+      
       with(airquality, 
            plot(Wind, Ozone, main = "Ozone & Wind in New York City", pch = 20))
       model <- lm(Ozone ~ Wind, airquality) #linear model
@@ -236,6 +246,7 @@ base_plotting_system <- function()
       
       
       ## Multiple Base Plots --------------------------------------------------
+      
       par(mfrow = c(1, 2))
       with(airquality, 
            { plot(Wind, Ozone, main = "Ozone & Wind")
@@ -255,12 +266,46 @@ base_plotting_system <- function()
 
 }
 
-
 graphics_devices <- function()
 {
+      # Graphics Devices ------------------------------------------------------
+      #
+      #                 Bitmap Formats
+      #
+      #           png : Good for line drawings / solid colors / many points 
+      #                 Uses lossless compression 
+      #                 Does not resize well
+      #          jpeg : Good for photographs / scenes / plotting many points 
+      #                 Uses lossy compression
+      #                 Does not resize well, Not good for line drawings
+      #          tiff : Uses lossless compression
+      #           bmp : Windows native bitmap format
+      #
+      #                 Vector Formats
+      #
+      #           pdf : Good for line-type graphics, resizes well, portable 
+      #                 Not efficient if a plot has many objects/points
+      #           svg : XML-based scalable vector graphics 
+      #                 Supports animation and interactivity (good for web)
+      #  win.metafile : Windows metafile format (only on Windows)
+      #    postscript : Older format, also resizes well, usually portable
+      #
+      #------------------------------------------------------------------------
       
+      ## Creating Plots in Files ----------------------------------------------
       
+      pdf( file = "myplot.pdf" )                  # Open PDF device in file
+      with( faithful, plot(eruptions, waiting ) ) # Create plot in file
+      title( main = "Old Faithful Geyser data" )  # Annotate plo
+      dev.off()                                   # Close the PDF file device
       
+      ## Copying Plots --------------------------------------------------------
+      
+      library(datasets)
+      with( faithful, plot(eruptions, waiting) )  # Create plot on screen
+      title( main = "Old Faithful Geyser data" )  # Add a main title
+      dev.copy( png, file = "geyserplot.png" )    # Copy plot to a PNG file
+      dev.off()                                   # Close the PNG device
 }
 
 
