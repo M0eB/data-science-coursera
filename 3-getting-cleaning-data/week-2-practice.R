@@ -2,11 +2,78 @@
 #          By : Mohamed T. Ismail
 #      Course : Getting and Cleaning Data (Johns Hopkins University)
 #    Provider : Coursera.com
-# Description : Week 2 practice questions - getting web/api/db/etc. data.
+# Description : Week 2 practice - getting web/api/db/etc. data.
 # =============================================================================
 
 
-question1 <- function()
+web_scraping <- function()    
+{
+      # Reading contents of a webpage -----------------------------------------
+      #
+      #        url : Get a connection
+      #       open : Open connection and set mode. Ex- Open(con, open="rt")
+      #      close : Close connection
+      #  readLines : If not open, opens connection in "rt" (read text) mode
+      #              If open, it reads from the current position
+      #   MODES
+      #  "r"|"rt"  : Open for reading in text mode
+      #  "w"|"wt"  : Open for writing in text mode
+      #  "a"|"at"  : Open for appendiong in text mode
+      # "r+"|"r+b" : Open for reading and writing
+      #              ...and some other combinations
+      #
+      # -----------------------------------------------------------------------
+      
+      
+      URL <- "http://biostat.jhsph.edu/~jleek/contact.html"
+      
+      ## Read webpage content
+      conn = url( URL )                # Create connection object
+      htmlCode = readLines( conn )     # Read text from page
+      close( conn )                    # Close connection
+      
+      ## Parse content
+      print( htmlCode[10] )             # View contents of the 10th line
+      print( nchar( htmlCode[20] ) )    # Count characters on 20th line
+      
+}
+
+
+using_sqldf_package <- function()
+{
+      # SQLDF Package ---------------------------------------------------------
+      #
+      # The sqldf package allows for execution of SQL commands on R dataframes. 
+      # Use the sqldf package to practice the queries we might send with the 
+      # the dbSendQuery command in RMySQL. 
+      #
+      # -----------------------------------------------------------------------
+      
+      install.packages( sqldf )   ## Tool for using SQL Select on dataframes
+      library( sqldf )
+      
+      ## Get data
+      filePath <- "./data/survey_data.csv"
+      if( !file.exists( filePath ) )
+      {
+            fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv"
+            download.file( fileURL, filePath )
+      }
+      
+      ## Load data
+      surveyData <- read.csv( filePath )
+      head( surveyData )
+      
+      ## Run SQL Queries On dataframe 
+      print( sqldf("SELECT pwgtp1 FROM surveyData WHERE AGEP < 50") )
+      print( sqldf("SELECT * FROM surveyData WHERE AGEP < 5 AND pwgtp1 < 10"))
+      print( sqldf("SELECT DISTINCT pwgtp1 FROM surveyData") )
+      print( sqldf("SELECT DISTINCT AGEP FROM surveyData") )
+      
+}
+
+
+using_github_api <- function()
 {
       # Github API ------------------------------------------------------------
       # Register an application with the Github API here 
@@ -88,80 +155,39 @@ question1 <- function()
 }
 
 
-question2 <- function()
+using_fixed_width_files <- function()
 {
-      # The sqldf package allows for execution of SQL commands on R data frames. 
-      # We will use the sqldf package to practice the queries we might send with 
-      # the dbSendQuery command in RMySQL. 
+      # Reading Fixed Width Files ---------------------------------------------
+      #
+      # - Use read.fwf to read the file, you can read directly from web
+      # - Specify the number of lines to skip with 'skip='
+      # - Specify the exact widths expected for the data with 'widths='
+      #          +ve widths : Expected data that will loaded in a column
+      #          -ve widths : ignored, use for whitespace
       
-      # Download the American Community Survey data and load it into an R object 
-      # called "acs"
+      # Example File Contents -------------------------------------------------
+      # Weekly SST data starts week centered on 3Jan1990
       
-      # https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv 
-      
-      # Which of the following commands will select only the data for the 
-      # probability weights pwgtp1 with ages less than 50?
-      
-      # a) sqldf("select * from acs where AGEP < 50 and pwgtp1")
-      # b) sqldf("select pwgtp1 from acs where AGEP < 50")
-      # c) sqldf("select * from acs")
-      # d) sqldf("select pwgtp1 from acs")
-      
-}
+      # Nino1+2      Nino3        Nino34        Nino4
+      # Week          SST SSTA     SST SSTA     SST SSTA     SST SSTA
+      # 03JAN1990     23.4-0.4     25.1-0.3     26.6 0.0     28.6 0.3
+      # 10JAN1990     23.4-0.8     25.2-0.3     26.6 0.1     28.6 0.3
+      # 17JAN1990     24.2-0.3     25.3-0.3     26.5-0.1     28.6 0.3
+      #
+      # -----------------------------------------------------------------------
+      # ___10____  5  _4_  _3_  5  _4_  _3_  5  _4_  _3_  5  _4_  _3_  [WIDTHS]
 
-
-question3 <- function()
-{
-      # Using the same data frame you created in the previous problem, 
-      # what is the equivalent function to unique(acs$AGEP)
       
-      # a) sqldf("select unique * from acs")
-      # b) sqldf("select AGEP where unique from acs")
-      # c) sqldf("select distinct pwgtp1 from acs")
-      # d) sqldf("select distinct AGEP from acs")
+      fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for"
       
+      ## Determine the widths for your data
+      fileWidths <- c(10,-5, 4,-1, 3,-5, 4,-1, 3,-5, 4,-1, 3,-5, 4,-1, 3 )
       
-}
-
-
-question4 <- function()    
-{
-      # How many characters are in the 10th, 20th, 30th and 100th 
-      # lines of HTML from this page:      
-      # http://biostat.jhsph.edu/~jleek/contact.html 
-      # (Hint: the nchar() function in R may be helpful)
-
-      ## Read webpage content
-      con = url( "http://biostat.jhsph.edu/~jleek/contact.html" )
-      htmlCode = readLines( con )
-      close( con )
-      
-      ## Count characters
-      print( nchar( htmlCode[10] ) )
-      print( nchar( htmlCode[20] ) )
-      print( nchar( htmlCode[30] ) )
-      print( nchar( htmlCode[100] ) )
-      
-}
-
-
-question5 <- function()
-{
-      # Read this data set into R and report the sum of the 
-      # numbers in the fourth column. 
-      
-      # https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for 
-      
-      # Original source of the data: 
-      # http://www.cpc.ncep.noaa.gov/data/indices/wksst8110.for 
-      
-      # (Hint this is a fixed width file format)
-
-      fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for "
-      
+      ## Read fixed width file
       data <- read.fwf( file = url( fileURL ),
                         skip = 4,
-                        widths = c(12, 7,4, 9,4, 9,4, 9,4) )  ##TODO: Fix these
+                        widths = fileWidths )  
       
+      head( data )
 }
 
