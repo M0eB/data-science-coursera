@@ -1,17 +1,6 @@
 R Resources for Getting Data
 =========
 
-### mySQL 
-- *RMySQL* Package - R interface to mySQL databases.
-    - [RMySQL Package Documentation]
-    - [List of Commands]
-    - [Summary of Commands]
-
-### HDF5 Resources 
-- *rhdf5* Package - R interface to HDF5
-    - [rhdf5 Tutorial]  
-    - [HDF group information on HDF5 (general)]
-
 ### Webscraping Resources 
 - *httr* Package - Tools for working with HTTP
     - [httr Package Documentation]
@@ -20,6 +9,12 @@ R Resources for Getting Data
 - *url* Method - Function to create, open and close connections
     - *Need Examples and documentation*
 
+### mySQL 
+- *RMySQL* Package - R interface to mySQL databases.
+    - [RMySQL Package Documentation]
+    - [List of Commands]
+    - [Summary of Commands]
+
 ### API Resources 
 
 - Twitter REST API
@@ -27,6 +22,10 @@ R Resources for Getting Data
     - [Documentation - GET search/tweets]
 - [*Github API*]
 
+### HDF5 Resources 
+- *rhdf5* Package - R interface to HDF5
+    - [rhdf5 Tutorial]  
+    - [HDF group information on HDF5 (general)]
 
 
 [RMySQL Package Documentation]:http://cran.r-project.org/web/packages/RMySQL/RMySQL.pdf
