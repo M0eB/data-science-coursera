@@ -11,7 +11,7 @@ web_scraping <- function()
       # Reading contents of a webpage -----------------------------------------
       #
       #        url : Get a connection
-      #       open : Open connection and set mode. Ex- Open(con, open="rt")
+      #       open : Open connection and set mode. Ex- open(con, open="rt")
       #      close : Close connection
       #  readLines : If not open, opens connection in "rt" (read text) mode
       #              If open, it reads from the current position
@@ -167,8 +167,8 @@ using_fixed_width_files <- function()
       
       # Example File Contents -------------------------------------------------
       # Weekly SST data starts week centered on 3Jan1990
-      
-      # Nino1+2      Nino3        Nino34        Nino4
+      #
+      #                Nino1+2      Nino3        Nino34        Nino4
       # Week          SST SSTA     SST SSTA     SST SSTA     SST SSTA
       # 03JAN1990     23.4-0.4     25.1-0.3     26.6 0.0     28.6 0.3
       # 10JAN1990     23.4-0.8     25.2-0.3     26.6 0.1     28.6 0.3

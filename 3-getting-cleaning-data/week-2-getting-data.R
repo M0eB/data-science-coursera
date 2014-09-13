@@ -6,19 +6,6 @@
 # =============================================================================
 
 
-## mySQL RESOURCES ============================================================
-##
-## RMySQL vignette :
-## http://cran.r-project.org/web/packages/RMySQL/RMySQL.pdf
-##
-## List of Commands :
-## http://www.pantz.org/software/mysql/mysqlcommands.html
-##
-## Summary of Commands :
-## http://www.r-bloggers.com/mysql-and-r/
-##
-## ============================================================================
-
 get_mysql_data <- function()
 {
       # Get a connection handle
@@ -83,21 +70,9 @@ get_mysql_data <- function()
       
       ## Remember to close connection (returns TRUE)
       dbDisconnect( hg19 ) 
-      
+
 }
 
-
-## HDF5 RESOURCES =============================================================
-##
-## hdf5 can be used to optimize reading/writing disc in R
-##
-## rhdf5 Tutorial :
-## www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf
-##
-## HDF group has information on HDF5 in general :
-## http://www.hdfgroup.org/HDF5/
-##
-## ============================================================================
 
 get_hdf5_data <- function()
 {
@@ -145,30 +120,16 @@ get_hdf5_data <- function()
       ## Writing and Reading Chunks
       h5write( c( 12, 13, 14), "example.h5", "foo/A", index=list( 1:3, 1) )
       h5read( "example.h5", "foo/A" )
-      
 }
 
 
-## WEBSCRAPING RESOURCES =======================================================
-## 
-## httr Package Documentation
-##    http://cran.r-project.org/web/packages/httr/httr.pdf
-##
-## - httr allows GET, POST, PUT, DELETE requests if you are authorized
-## - You can authenticate with a user name or password
-## - Most modern APIs use something like oauth
-## - httr works well with Facebook, Google, Twitter, Github, etc.
-##
-## R Bloggers has a number of examples of web scraping :
-##    http://www.r-bloggers.com/?s=Web+Scraping
-##
-## httr help files has useful examples :
-##    http://cran.r-project.org/web/packages/httr/httr.pdf
-##
-## ============================================================================
-
 get_web_data <- function()
 {
+      # httr allows GET, POST, PUT, DELETE requests if you are authorized
+      # You can authenticate with a user name or password
+      # Most modern APIs use something like oauth
+      # httr works well with Facebook, Google, Twitter, Github, etc.
+      
       ## Getting Data off Webpages 
       con = url( "http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en" )
       htmlCode = readLines( con )
@@ -203,25 +164,8 @@ get_web_data <- function()
       google = handle("http://google.com")
       pg1 = GET( handle=google, path="/" )
       pg2 = GET( handle=google, path="search" )
-      
 }
 
-
-## API RESOURCES ==============================================================
-##
-## httr Package Documentation
-##    http://cran.r-project.org/web/packages/httr/httr.pdf
-##
-## - httr allows GET, POST, PUT, DELETE requests if you are authorized
-## - You can authenticate with a user name or password
-## - Most modern APIs use something like oauth
-## - httr works well with Facebook, Google, Twitter, Github, etc.
-##
-## Twitter REST API documentation :
-##    https://dev.twitter.com/docs/api/1.1/overview
-##    https://dev.twitter.com/docs/api/1.1/get/search/tweets
-##
-## ============================================================================
 
 get_twitter_api_data <- function()
 {
@@ -234,6 +178,5 @@ get_twitter_api_data <- function()
       json1 = content(homeTL)
       json2 = jsonlite::fromJSON(toJSON(json1))
       json2[1, 1:4]
-
 }
 
