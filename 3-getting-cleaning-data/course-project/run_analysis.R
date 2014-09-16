@@ -50,13 +50,77 @@
 run_analysis <- function()
 {
       
+      ## Load Data 
+      
+
+      x_test_data_path  <- "./uci-har-dataset/test/"
+      y_test_data_path  <- "./uci-har-dataset/test/"
+      x_train_data_path <- "./uci-har-dataset/train/"
+      y_train_data_path <- "./uci-har-dataset/train/"
+      
+
+      ## Get a dataframe for each of dataset
+      test_data <- get_xy_data( x_test_data_path, y_test_data_path )
+      train_data <- get_xy_data( x_train_data_path, y_train_data_path )
+
+      ## Merge the two datasets
+
+
+
+
+      
+      
+      
+      ## Extract only the measurements on the mean and standard 
+      ## deviation of each measurement
+      
+      
+      
+      
+      ## Use descriptive activity names to name the activites in the dataset
+      
+      
+      
+      
+      
+      ## Appropriately label the data with descriptive variable names
+      
+
+      
+      
+      
+      ## From the dataset in step 4, create a second, independent tiny
+      ## data set with the average of each variable for each activity
+      ## and each subject
       
       
       
 }
 
 
+get_data <- function( path )
+{
 
+	datapath <- "C:/git-repo/data-science-coursera/3-getting-cleaning-data/course-project/uci-har-dataset/test/Inertial Signals"
+	setwd(datapath)
+
+	files <- list.files()
+
+	for( file in files )
+	{
+		data <- read.table( file, sep=" ", header=FALSE )  ## read next file
+		var.means <- tapply( data[1,], data[1,], mean )   ## means of each row
+		var.stdev <- tapply( data[1,], data[1,], sd )     ## std dev of each row
+			
+
+		## Add means and stdev as new columns to data frame
+
+	}
+
+
+
+
+}
 
 
 
