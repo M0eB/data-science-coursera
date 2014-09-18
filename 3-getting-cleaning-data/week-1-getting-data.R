@@ -173,25 +173,28 @@ data_table_package <- function()
 
       library(data.table)
 
-      ## Create data tables just like data frames
+      ## Create data tables just like data frames -----------------------------
       
-      DT = data.frame( x=rnorm(9), y=rep( c("a","b","c"), each=3), z=rnorm(9) )
-      head( DF, 3 )
+      DF = data.frame( x = rnorm(9),                         
+                       y = rep( c("a","b","c"), each=3 ), 
+                       z = rnorm(9) )
 
-      DT = data.frame( x=rnorm(9), y=rep( c("a","b","c"), each=3), z=rnorm(9) )
-      head( DF, 3 )
+      DT = data.table( x = rnorm(9),                         
+                       y = rep( c("a","b","c"), each=3 ), 
+                       z = rnorm(9) )
 
-      ## See all the data tables in memory
-      tables() 
+      head( DF, 3 )    # Data Frame
+      head( DT, 3 )    # Data Table
+
+      tables()         # See all data tables in memory
+
+
+      ## Subsetting -----------------------------------------------------------
       
-      ## Subsetting Rows
-      DT[ 2,0 ]               # Get a row
-      DT[ DT$y=="a", ]        # Get rows where y='a'
-      DT[ c(2,3) ]            # Using one elements subsets by row (rows 2,3)
-
-
-      ## Subsetting Columns
-      DT[,c(2,3)]
+      DT[2, 0]           # Get a row
+      DT[DT$y=="a", ]    # Get rows where y='a'
+      DT[c(2,3)]         # Using one elements subsets by row (rows 2,3)
+      DT[ ,c(2,3)]       # Columns
 
 
       # Column Subsetting in data.table ---------------------------------------
@@ -202,61 +205,95 @@ data_table_package <- function()
       # -----------------------------------------------------------------------
 
       {
-            x = 1
+            x = 1                     # This is an expression
             y = 2
+            z = 3
       }
 
-      k = { print(10); 5 }
-      print( k )
+      k = { print(10); 5 }            # Prints 10
+      print( k )                      # Prints 5 - result of expression
+
+      DT[ , list(mean(x), sum(z)) ]   # Returns mean of DT$x & sum of DT$z
+      DT[ , table(y) ]                # REturns a table of y values
 
 
-      ## Calculating values for variables with expresions
-      DT[ , list(mean(x), sum(z)) ]
-      DT[ , table(y) ]
+      # := Operator -----------------------------------------------------------
+      #     - The := operator can be used to add a new column to a data table
+      #     - Modifies the datatable to add a new column 
+      #     - This is different from dataframe - which creates a copy
 
-      ## Adding new columns
-      DT[ , W:=Z^2 ]
-      DT2 <- DT
-      DT[ , y:=2 ]
+      DT[ , w:=x^2]       # Add a new column W equal to DT$Z squared
+      DT2 <- DT            
+      DT[ , y:=2]         # Change values in the y column to 2
 
-      ## Careful
-      head( DT, n=3 )
-      head( DT2, n=3 )
+      head( DT, n=3 )     # Since data.table modifies the same object...
+      head( DT2, n=3 )    # ...these will be the same
 
-      ## Multiple Operations
-      DT[ , m:={tmp <- (x+z); log(tmp+5)} ]
-
-
-      ## plyr like operations
-      DT[ , a:=x>0 ]
-      DT[ , b:=mean(x+w), by=a ]
+      # To make a copy of a data table use the copy function
+      
+      DT[ , m:={ tmp<-(x+z); log(tmp+5) }]   # Add column m using expression
 
 
-      ## Special Variables : .N An integer, length 1, containing the number r
+      # plyr Like Operations --------------------------------------------------
+      
+      DT[ , a:=x>0]                # Add a column of bools,TRUE when x>0
+      DT[ , b:=mean(x+w), by=a]    # Add a column of means grouped by a
+      
+      # This expression above will get the mean of all values where 
+      # a=TRUE and put the result in those rows, then do the same for FALSE
+      
+      
+      # Special Variables in data.table ---------------------------------------
+      #     .N  :  An integer of length one, containing the number
+      #            of times a particular group appears.
+      #            Can be read as 'count the number of times'.
+      #            This is much faster than using DT$x
+      
       set.seed( 123 )
-      DT <- data.table( x=sample( letters[1:3], 1E5, TRUE) )
-      DT[ , .N, by=x ]
+      DT <- data.table( x=sample( letters[1:3], 1E5, TRUE) ) # many a, b, c's
+      DT[ , .N, by=x ]   # count the number of times each of a,b,c appear
 
 
-      ## Keys
-      DT <- data.table( x=rep( c("a","b","c"), each=100), y=rnorm(300) )
-      setkey( DT, x )
-      DT['a']
+      # Keys ------------------------------------------------------------------
+      #     - If you set a key it is possible to subset and sort a 
+      #       data table much more rapidly than you would be able to with
+      #       the data frame
+             
 
-      ## Joins
-      DT1 <- data.table( x=c('a', 'a', 'b', 'dt1'), y=1:4 )
-      DT2 <- data.table( x=c('a', 'b', 'dt2'), z=5:7 )
+      DT <- data.table( x = rep( c("a","b","c"), each=100), 
+                        y = rnorm(300) )
+
+      setkey( DT, x )   # Set the key to be the variable x
+      DT['a']           # Subset to only values where x='a'
+
+
+      # Joins -----------------------------------------------------------------
+
+      # Create two tables with matching column
+      DT1 <- data.table( x = c('a', 'a', 'b', 'dt1'), 
+                         y = 1:4 )
+      DT2 <- data.table( x = c('a', 'b', 'dt2'), 
+                         z = 5:7 )
+      
       setkey( DT1, x ) 
       setkey( DT2, x )
-      merge( DT1, DT2 )
+      merge( DT1, DT2 )   # Can merge tables since they have the same key
 
 
-      ## Fast Reading
+      # Fast Reading ----------------------------------------------------------
+
+      # Create a big data table and save to file
       big_df <- data.frame( x=rnorm(1E6), y=rnorm(1E6) )
       file <- tempfile()
       write.table( big_df, file=file, row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE )
-      system.time( fread(file) )
-      system.time( read.table(file, header=TRUE, sep="\t") )
+      
+      # Read back file
+      system.time( fread(file) )                                # Fast 
+      system.time( read.table(file, header=TRUE, sep="\t") )    # Slow
+
+
+      ## LOOK INTO MELT AND OTHER NEW OPERATIONS IN data.table.
 
 }
+
 
