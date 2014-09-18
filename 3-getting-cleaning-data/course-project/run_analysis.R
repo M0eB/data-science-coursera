@@ -5,7 +5,8 @@
 # Description : Course Project analyzing accelerometer data.
 # =============================================================================
 
-
+# -----------------------------------------------------------------------------
+#
 # The purpose of this project is to demonstrate your ability to collect, 
 # work with, and clean a data set. The goal is to prepare tidy data that 
 # can be used for later analysis. 
@@ -45,32 +46,50 @@
 # Appropriately labels the data set with descriptive variable names. 
 # From the data set in step 4, creates a second, independent tidy data set 
 # with the average of each variable for each activity and each subject.
-
+#
+# -----------------------------------------------------------------------------
 
 run_analysis <- function()
 {
       
-      ## Load Data 
-      
+      # Prepare Paths ---------------------------------------------------------
 
-      x_test_data_path  <- "./uci-har-dataset/test/"
-      y_test_data_path  <- "./uci-har-dataset/test/"
-      x_train_data_path <- "./uci-har-dataset/train/"
-      y_train_data_path <- "./uci-har-dataset/train/"
-      
+      labels_file     <- "./activity_labels.txt"
+      features_file   <- "./features.txt"
+      train_subj_file <- "./train/subject_train.txt"
+      train_x_file    <- "./train/x_train.txt"
+      train_y_file    <- "./train/y_train.txt"
+      test_subj_file  <- "./test/subject_test.txt"     
+      test_x_file     <- "./test/x_test.txt"
+      test_y_file     <- "./test/y_test.txt"
 
-      ## Get a dataframe for each of dataset
-      test_data <- get_xy_data( x_test_data_path, y_test_data_path )
-      train_data <- get_xy_data( x_train_data_path, y_train_data_path )
+
+      ## Load Data Files  -----------------------------------------------------
+      
+      activities <- read.table( labels_file, header = FALSE, 
+                                             sep = " ", 
+                                             col.names = c("id", "activity") )
+      features <- read.table( features_file, headear = FALSE, 
+                                             sep = TRUE
+                                             col.names = c("id","activity") )
+
+      subject_train <- read.table( train_subj_file, header = FALSE, 
+                                                    col.names = "subject" )
+      subject_test  <- read.table( test_subj_file, header = FALSE, 
+                                                   col.names = "subject" )
+
+      x_train <- read.table( train_x_file, header = FALSE )
+      x_test  <- read.table( test_x_file, header = FALSE )
+
+      y_train <- read.table( train_y_file, header = FALSE, col.names = "id" )
+      y_test  <- read.table( test_y_file, header = FALSE, col.names = "id" )
+
+
 
       ## Merge the two datasets
 
 
 
-
-      
-      
-      
       ## Extract only the measurements on the mean and standard 
       ## deviation of each measurement
       
@@ -79,47 +98,19 @@ run_analysis <- function()
       
       ## Use descriptive activity names to name the activites in the dataset
       
-      
-      
+
       
       
       ## Appropriately label the data with descriptive variable names
       
 
-      
-      
+
       
       ## From the dataset in step 4, create a second, independent tiny
       ## data set with the average of each variable for each activity
       ## and each subject
       
       
-      
-}
-
-
-get_data <- function( path )
-{
-
-	datapath <- "C:/git-repo/data-science-coursera/3-getting-cleaning-data/course-project/uci-har-dataset/test/Inertial Signals"
-	setwd(datapath)
-
-	files <- list.files()
-
-	for( file in files )
-	{
-		data <- read.table( file, sep=" ", header=FALSE )  ## read next file
-		var.means <- tapply( data[1,], data[1,], mean )   ## means of each row
-		var.stdev <- tapply( data[1,], data[1,], sd )     ## std dev of each row
-			
-
-		## Add means and stdev as new columns to data frame
-
-	}
-
-
-
-
 }
 
 
