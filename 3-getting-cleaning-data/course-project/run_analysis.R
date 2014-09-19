@@ -66,93 +66,57 @@ run_analysis <- function()
 
       ## Load Data Files  -----------------------------------------------------
       
-      activities <- read.table( labels_file, header = FALSE, 
-                                             sep = " ", 
-                                             col.names = c("id", "activity") )
-      features <- read.table( features_file, headear = FALSE, 
-                                             sep = TRUE
-                                             col.names = c("id","activity") )
+      activities <- read.table( labels_file, header=FALSE, sep=" ", col.names=c("id", "activity") )            
+      features <- read.table( features_file, header=FALSE, sep=" ", col.names=c("id","feature") )
 
-      subject_train <- read.table( train_subj_file, header = FALSE, 
-                                                    col.names = "subject" )
-      subject_test  <- read.table( test_subj_file, header = FALSE, 
-                                                   col.names = "subject" )
+      subject_train <- read.table( train_subj_file, header=FALSE, col.names="subject" )
+      subject_test  <- read.table( test_subj_file, header=FALSE, col.names="subject" )
 
-      x_train <- read.table( train_x_file, header = FALSE )
-      x_test  <- read.table( test_x_file, header = FALSE )
-
-      y_train <- read.table( train_y_file, header = FALSE, col.names = "id" )
-      y_test  <- read.table( test_y_file, header = FALSE, col.names = "id" )
+      x_train <- read.table( train_x_file, header = FALSE, col.names = features$feature )
+      y_train <- read.table( train_y_file, header = FALSE, col.names = "activity" )
+      
+      x_test  <- read.table( test_x_file, header = FALSE, col.names = features$feature )
+      y_test  <- read.table( test_y_file, header = FALSE, col.names = "activity" )
 
 
-
-      ## Merge the two datasets
-
-
-
-      ## Extract only the measurements on the mean and standard 
-      ## deviation of each measurement
+      ## Merge the two datasets -----------------------------------------------
+      
+      subject_data <- rbind( subject_train, subject_test)
+      x_data <- rbind( x_train, x_test ); 
+      y_data <- rbind( y_train, y_test ); 
       
       
+      ## Remove unwanted data and change column names -------------------------
+      
+      ## Cleanup X data
+      mean_std_columns <- grep( "mean|std", features$feature )
+      x_data <- x_data[ ,mean_std_columns]
+      colnames( x_data ) = features$feature[ mean_std_columns ]
+      
+      ## Cleanup Y data 
+      ## TODO: Find a better way to do this, vectorized
+      ##       Trying to read it from the activities table failed
+      y_data$activity[ y_data$activity == "1" ] = "WALKING"
+      y_data$activity[ y_data$activity == "2" ] = "WALKING_UPSTAIRS"
+      y_data$activity[ y_data$activity == "3" ] = "WALKING_DOWNSTAIRS"
+      y_data$activity[ y_data$activity == "4" ] = "SITTING"
+      y_data$activity[ y_data$activity == "5" ] = "STANDING"
+      y_data$activity[ y_data$activity == "6" ] = "LAYING"
       
       
-      ## Use descriptive activity names to name the activites in the dataset
+      ## Merge data and sort ----------------------------------------------
       
+      clean_data <- cbind( subject_data, y_data, x_data )
+      clean_data[ with(clean_data, order(subject, activity)), ]  
+      
+      head(clean_data)
 
-      
-      
-      ## Appropriately label the data with descriptive variable names
-      
 
 
-      
       ## From the dataset in step 4, create a second, independent tiny
       ## data set with the average of each variable for each activity
       ## and each subject
-      
-      
+           
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

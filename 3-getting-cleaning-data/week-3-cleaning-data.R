@@ -14,49 +14,51 @@ subsetting_and_sorting <- function()
       
       set.seed( 13435 ) 
       
+      ## Create a dataframe
       data <- data.frame( "var1" = sample(1:5), 
                           "var2" = sample(6:10),
                           "var3" = sample(11:15) )
       
-      data <- data[ sample(1:5), ]            
-      data <- data$var2[ c(1,3) ] = NA
+      data <- data[ sample(1:5), ]        # Scramble the variables        
+      data <- data$var2[ c(1,3) ] = NA    # Make some of the values missing
       print( data )
       
-      data[ ,1 ]
-      data[ ,"var1" ]
-      data[ 1:2,"var2" ]
+
+      ## Basic Subsetting
+      data[ ,1 ]            # Subset a column by number
+      data[ ,"var1" ]       # Subset a column by name
+      data[ 1:2,"var2" ]    # Subset rows and column (two rows of var2 column)
       
-      ## Logicals ands ors
-      
-      data[ ( data$var1 <= 3 & data$var3 > 11 ), ]
+
+      ## Subsetting using Logicals / ands / ors
+      data[ ( data$var1 <= 3 & data$var3 > 11 ), ]   
       data[ ( data$var1 <= 3 | data$var3 > 15 ), ]
       
+
       ## Dealing with missing values
+      X[ which( data$var2 > 8 ), ]      # Using which will ignore NA's
       
-      X[which( data$var2 > 8 ),]
-      
+
       ## Sorting 
-      
       sort( data$var1 )
       sort( data$var1, decreasing=TRUE )
       sort( data$var2, na.last=TRUE )
       
+
       ## Ordering 
-      
       data[ order( data$var1 ), ]
       data[ order( data$var1, data$var3 ), ]
       
+
       ## Ordering with plyr
-      
       library(plyr)
-      
       arrange( data, var1 )
       arrange( data, desc(var1) )
       data$var4 <- rnorm(5)
       printf( data ) 
       
+
       ## Adding rows and column
-      
       Y <- cbind( data, rnorm(5) )
       print( Y )
          
