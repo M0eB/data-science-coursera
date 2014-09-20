@@ -109,13 +109,17 @@ run_analysis <- function()
       clean_data <- cbind( subject_data, y_data, x_data )
       clean_data[ with(clean_data, order(subject, activity)), ]  
       
-      head(clean_data)
 
-
-
-      ## From the dataset in step 4, create a second, independent tiny
-      ## data set with the average of each variable for each activity
-      ## and each subject
+      ## Create dataset with the average of each variable for each 
+      ## activity and each subject
+      
+      library(plyr)
+      tiny_dataset <- ddply( clean_data, .(subject, activity), numcolwise(mean) )
+      
+      
+      ## Save new datasets ----------------------------------------------------
+      
+      
            
 }
 
