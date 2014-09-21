@@ -9,6 +9,10 @@ This document describes the data contained within Tidy_Data.txt .
 * For information on how the data is generated please refer to the README.md fil which accompanies the script HERE. 
 * Note that Tidy_data.txt only includes a subset of the original data on which the script runs. The original data and it's description can be found here : http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
+## Data
+
+*Each row within the data identifies the subject, the activity performed, and the mean of all of the measurements captured for that user performing that activity for each of the different measurement types. It summerizes the original dataset by reducing all of the measurements to a single value for each user and activitiy. Please note that the measurements below are ALL averages of all measurements of for that corresponding varaiable type.*
+
 
 ## Variables
 
@@ -17,8 +21,6 @@ Tidy_Data.txt contains the following three types of variables :
 * subject : The subject who peformed the activity (30 different subjects)
 * activity : The activity performed by the subject (ie - Walking, Sitting, etc.)
 * measurements : Different measurements captured while the subject was performing the activity.
-
-Each row within the data identifies the subject, the activity performed, and the mean of all of the measurements captured for that user performing that activity for each of the different measurement types.
 
 
 ## Measurements
