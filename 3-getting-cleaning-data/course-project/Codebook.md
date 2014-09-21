@@ -5,7 +5,7 @@ This document describes the data contained within Tidy_Data.txt .
 
 ## Generation
 
-* The data within Tidy_Data.txt was generated using the Run_Analysis.R script. 
+* The data within Tidy_Data.txt was generated using the run_analysis.R script. 
 * For information on how the data is generated please refer to the README.md fil which accompanies the script HERE. 
 * Note that Tidy_data.txt only includes a subset of the original data on which the script runs. The original data and it's description can be found here : http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
@@ -25,9 +25,8 @@ Each row within the data identifies the subject, the activity performed, and the
 
 Below are descriptions of each of teh measurements captured :
 
-"subject" - The individual for each the measurements were captured..
-"activity" - The activity performed by the subject (ie- "WALKING", "SITTING", etc.).
-
+- "subject" - The individual for each the measurements were captured..
+- "activity" - The activity performed by the subject (ie- "WALKING", "SITTING", etc.).
 - "tBodyAcc-mean()-X" - Mean of the body acceleration time domain signal on the X axis.
 - "tBodyAcc-mean()-Y" - Mean of the body acceleration time domain signal on the Y axis.
 - "tBodyAcc-mean()-Z" - Mean of the body acceleration time domain signal on the Z axis.
