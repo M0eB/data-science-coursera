@@ -119,7 +119,7 @@ run_analysis <- function()
       
       ## Save new datasets ----------------------------------------------------
       
-      
+      write.table( tiny_dataset, file="Tidy_Data.txt", row.name=FALSE )
            
 }
 
