@@ -80,7 +80,7 @@ lists <- function()
 }
 
 
-replace_remove_characters <- function
+replace_remove_characters <- function()
 {
 	testName <- "this_is_a_test"
 
@@ -101,7 +101,7 @@ finding_values <- function()
 	table{ grepl( "Alameda", cameraData$intersection) )   # F, F, F, T, T, F..
 
 	# Search - subset dataframe
-	cameraData2 <- cameraData[ !grepl("Alameda", cameraDAta$intersection), ]
+	cameraData2 <- cameraData[ !grepl("Alameda", cameraData$intersection), ]
 
 	# Search - Get values
 	grep( "Alameda", cameraData$intersection, value=TRUE )  # intersections
