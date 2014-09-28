@@ -7,6 +7,22 @@
 
 
 
+# Text in Data Sets ===========================================================
+#
+# Names of variables should be :
+# 		- All lower case when possible
+#		- Descriptive (Diagnosis vs Dx )
+#		- Not duplicated
+#		- Not have underscores or dots or white spaces
+#
+# Variables with character values :
+#		- Should usually be made into factor variables (depends on application)
+#		- Should be descriptive (use TRUE/FALSE instead of 0/1) 
+#
+# =============================================================================
+
+
+
 editing_text_variables <- function()
 {
 
@@ -72,7 +88,6 @@ replace_remove_characters <- function
 
 	 sub( "_", "", testName )  # removes only first item - "thisis_a_test"
 	gsub( "_", "", testName )  # removes all items - "thisisatest"
-
 }
 
 
@@ -81,9 +96,31 @@ finding_values <- function()
 	# grep  - returns rows where search item was found in vector
 	# grepl - "logical", returns TRUE/FALSE vector indicating found or not
 
+	# Search - get the row numbers
 	grep( "Alameda", cameraData$intersection )            # 4, 5, 36
+	
+	# Search - get logical vector 
 	table{ grepl( "Alameda", cameraData$intersection) )   # F, F, F, T, T, F..
+
+	# Search - subset dataframe
 	cameraData2 <- cameraData[ !grepl("Alameda", cameraDAta$intersection), ]
+
+	# Search - Get values
+	grep( "Alameda", cameraData$intersection, value=TRUE )  # intersections
+
+	# Search - get number of instances
+	length( grep( "Alameda", cameraData$intersection) )     # 3
+}
+
+
+string_functions <- function()
+{
+	library( stringr )
+	nchar( "Mohamed Ismail" )          # Number of characters : 14
+	substr("Mohamed Ismail", 1, 7 )    # Substring : Mohamed
+	paste( "Mohamed", "Ismail" )       # Append : Mohamed Ismail
+	paste0( "Mohamed", "Ismail" )      # Append without spaces : MohamedIsmail
+	str_trim("Mohamed    " )           # Remove spaces : "Mohamed"
 
 }
 
